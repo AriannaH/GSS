@@ -1,6 +1,6 @@
 ---
 title: "Social Survey 2010"
-author: "Put your name here!"
+author: "Arianna H"
 date: "Fall 2018"
 output:
   html_document:
@@ -23,6 +23,10 @@ Use the data from the 2010 general social survey to explore whether belief in co
 
 <!--Decide on your methods:  use "variable analysis" or other appropriate descriptors.  Make sure to choose at least one graphical method and at least one numerical method.!-->
 
+First I had made a bar chart for the folllowing variables: race and capital punishment,  race and continental drift, and apital punishment and continental drift. Then I got the numerical data by doing rowPercents and colPerc for each of the combinations for the three variables. Fianlly, I did a chi sqaured test for each of the combinations for the three variables.   
+
+
+
 #Results
 
 <!--Divide this section into two sub-sections:  One for your descriptive  results and one for your inferential results.!-->
@@ -42,17 +46,67 @@ alldata <- read.csv(file="gss2010.csv", header=TRUE)
 ```{r}
 barchartGC(~race+condrift, data=alldata, type = "percent") 
 ```
+   
+Here the percentage of black is lower than the White and Other race.   
 
 
-### Numerical Descriptive Results
+
+```{r}
+barchartGC(~race+cappun, data=alldata, type = "percent") 
+```
+ 
+ Here the black have a lower percentage for favoring when compared to white and Other races.   
+ 
+
+
+```{r}
+barchartGC(~condrift+cappun, data=alldata, type = "percent") 
+```
+
+Here the percenatge of those who favor are higher than those who oppose.  
+
+
+
+
+# Numerical Descriptive Results
 
 <!--Numerical results go here. Use the numerical results to describe the patterns if any that exist in the data as focused toward the research question!-->
 
+```{r}
+Tab =xtabs(~race+condrift, data=alldata) 
+rowPercents(Tab)
+colPerc(Tab)
+```
+```{r}
+Tab =xtabs(~race+cappun, data=alldata) 
+rowPercents(Tab)
+colPerc(Tab)
+```
+
+```{r}
+Tab =xtabs(~cappun+condrift, data=alldata) 
+rowPercents(Tab)
+colPerc(Tab)
+```
 ## Inferential Results
 
 <!--State hypothesis clearly.  Make sure your discussion of the inferential test covers all the aspects that the test output produces, such as test statistic, p-value etc.  Make a decision about the null hypothesis, explain the assumptions on which the selected test/procedure was based, and why the chosen procedure satisfys the assumptions and is appropriate to answer the research question!-->
 
+```{r}
+chisqtestGC(~race+condrift, data=alldata, graph =TRUE)
+```
+```{r}
+chisqtestGC(~race+cappun,data=alldata, graph =TRUE)
+```
 
-# Discussion and Conclusion
+```{r}
+chisqtestGC(~cappun+ condrift, data=alldata, graph =TRUE)
+```
+  
+  
+#Discussion and Conclusion
 
 <!--Discussion and conclusion here.  If you found a relationship be sure to consider whether the relationship occurs because one of the variavbles causes the other, or whether they perhasps are related for some other reason.  Watch the chapter 6 videos from the GeorgeTown videos collection.!-->
+
+Based on the results that were given after doing the Chi Squared tests on the three differnet combinations of variables, we will reject the null hypothesis for each of the combinatiosn execpt for the one for capital punishment and continetal drift. Capital punishment and contitental drift had a p value of 0.7919 (which is high) therefore we had enough evidence accept the hypothesis. the combination regarding race and capital punishment and well as race and continetal drift was insignificant. The only chart that was significant was continental drift and capital punishment. 
+
